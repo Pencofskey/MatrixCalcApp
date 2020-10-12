@@ -19,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.disp);
 
-        Matrix m = new Matrix(4, 5, 60);	//デバッグ用自動行列生成
+        Matrix m = new Matrix(4, 5, 40);	//デバッグ用自動行列生成
+        m.print(tv);
+        tv.append("\n\n");
+        m.hakidashi(tv);
         m.print(tv);
 
     }
