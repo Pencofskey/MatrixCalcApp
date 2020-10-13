@@ -37,11 +37,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view){
             EditText row = findViewById(R.id.rowSize);
-            EditText column = findViewById(R.id.rowSize);
+            EditText column = findViewById(R.id.columnSize);
             //EditTextの文字を読み取り1~15
-            if (row.getText().toString().equals(null) || column.getText().toString().equals(null)){
-                Toast.makeText(MainActivity.this, R.string.err, Toast.LENGTH_LONG).show();
-            }else if (Integer.parseInt(row.getText().toString()) < 10 && Integer.parseInt(row.getText().toString()) > 1 && Integer.parseInt(column.getText().toString()) > 1 && Integer.parseInt(column.getText().toString()) < 10){
+            if (row.getText().toString().matches("[1-9]") && column.getText().toString().matches("[1-9]")){
                 //インテントをnewする
                 Intent intent = new Intent(MainActivity.this, InputMatrix.class);
                 //新しいアクテビティに行列サイズ情報を送る
@@ -49,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("column", Integer.parseInt(column.getText().toString()));
                 //アクテビティ生成
                 startActivity(intent);
+            }else{
+                Toast.makeText(MainActivity.this, R.string.err, Toast.LENGTH_LONG).show();
             }
         }
     }

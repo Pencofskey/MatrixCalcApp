@@ -10,15 +10,19 @@ public class Matrix {
     public int getRow() {
         return this.row;
     }
+    public void setRow(int row) { this.row = row; }
     public int getColumn() {
         return this.column;
     }
+    public void setColumn(int column) { this.column = column; }
     public String[][] getMatrix() { return this.matrix; }
     public void putMatrix(int row, int column, String data) {
         this.matrix[row][column] = data;
     }
 
     Matrix(int r, int c){
+        this.row = r;
+        this.column = c;
         this.reset();
     }
 

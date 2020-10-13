@@ -4,6 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/rowSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x"/>
+        <TextView
+            android:id="@+id/columnSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="型行列の入力"/>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,18 +34,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:padding="20dp"
                 android:id="@+id/disp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:typeface="monospace"/>
         </HorizontalScrollView>
     </ScrollView>
-    <TextView
-        android:id="@+id/inputData"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:textSize="16dp"/>
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/rowCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="number"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="行"/>
+        <EditText
+            android:id="@+id/columnCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="number"
+            android:textSize="25dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="列のデータ : "/>
+        <TextView
+            android:id="@+id/inputData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="25dp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -129,7 +182,7 @@
             android:layout_height="60dp"
             android:text="0"/>
         <Button
-            android:id="@+id/btn-"
+            android:id="@+id/btnDash"
             android:layout_width="70dp"
             android:layout_weight="1"
             android:layout_marginLeft="2dp"
@@ -146,15 +199,43 @@
             android:layout_weight="1"
             android:text="/" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_height="60dp"
+    <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:text="確 定" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="Clear" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="Backspace" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="Confirm" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
