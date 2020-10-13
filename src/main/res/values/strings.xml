@@ -1,3 +1,12 @@
 <resources>
+    <string name = "inputSize">行列のサイズを入力してください</string>
+    <string name = "inputSample">入力例</string>
+    <string name = "row">行</string>
+    <string name = "err">エラー 行数又は列数に異常があります</string>
+    <string name = "column">列</string>
+    <string name = "btnSubmitSize">確定</string>
     <string name="app_name">行列簡約化</string>
+    <string name = "btnCorrect">行列修正</string>
+    <string name = "btnReset">行列初期化</string>
+    <string name = "btnKannyakuka">行列簡約化</string>
 </resources>

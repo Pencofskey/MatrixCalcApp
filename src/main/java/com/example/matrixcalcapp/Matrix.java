@@ -10,13 +10,16 @@ public class Matrix {
     public int getRow() {
         return this.row;
     }
-
     public int getColumn() {
         return this.column;
     }
+    public String[][] getMatrix() { return this.matrix; }
+    public void putMatrix(int row, int column, String data) {
+        this.matrix[row][column] = data;
+    }
 
-    public String[][] getMatrix() {
-        return this.matrix;
+    Matrix(int r, int c){
+        this.reset();
     }
 
     Matrix() { //行列初期化
@@ -64,7 +67,7 @@ public class Matrix {
                 if (bunbo == 0) {
                     bunbo = 1;
                 }
-                this.matrix[r][c] = "" + Fraction.yakubun(Fraction.buildFraction(bunshi, bunbo));
+                this.matrix[r][c] = Fraction.yakubun(Fraction.buildFraction(bunshi, bunbo));
             }
         }
     }

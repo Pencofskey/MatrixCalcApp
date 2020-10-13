@@ -106,7 +106,7 @@ public class Fraction {
     //2つの整数を読み込み、String型の分数を返します
     public static String buildFraction(long bunshi, long bunbo) {
         StringBuilder bunsu = new StringBuilder();
-        if (bunbo == 1) { //分母が1の時に分子だけを返す
+        if (bunbo == 1 || bunbo == -1) { //分母が1の時に分子だけを返す
             bunsu.append(bunshi);
         } else if (bunbo == 0) { //分母ゼロ例外処理
             throw new IllegalArgumentException("分母に0が代入");
@@ -130,11 +130,11 @@ public class Fraction {
     //約分されたbを返します
     public static String yakubun(String b) {
         long bunshi = getBunshi(b);
-        if (bunshi == 0 || bunshi == 1) {
-            return b;
-        }
         if (bunshi < 0) {
             bunshi *= -1;
+        }
+        if (bunshi == 0 || bunshi == 1) {
+            return b;
         }
 
         //最大公約数 ユークリッド互除法
