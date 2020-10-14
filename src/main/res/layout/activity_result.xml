@@ -28,10 +28,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="簡約化された行列"/>
+        android:text="簡約化された行列"
+        android:background="#111"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#111">
 
         <HorizontalScrollView
             android:layout_width="match_parent"

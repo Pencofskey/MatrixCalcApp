@@ -241,6 +241,8 @@ public class InputMatrix extends AppCompatActivity {
                             if(m.getMatrix()[r][c].equals("")){
                                 noData = true;
                             }
+                            //アンダーバー削除
+                            m.setData(r, c, m.getMatrix()[r][c].replace("_", ""));
                         }
                     }
                     if(noData){
