@@ -16,7 +16,7 @@ public class Matrix {
     }
     public void setColumn(int column) { this.column = column; }
     public String[][] getMatrix() { return this.matrix; }
-    public void putMatrix(int row, int column, String data) {
+    public void setData(int row, int column, String data) {
         this.matrix[row][column] = data;
     }
 
@@ -81,7 +81,7 @@ public class Matrix {
         this.matrix = new String[this.row][this.column];
         for (int r = 0; r < this.row; r++) {
             for (int c = 0; c < this.column; c++) {
-                this.matrix[r][c] = " ";
+                this.matrix[r][c] = "";
             }
         }
     }
@@ -176,27 +176,6 @@ public class Matrix {
                 this.imputer(row, column);
             }
         }
-    }
-
-    //データ修正
-    public void correctionData(TextView tv) {
-        System.out.println("修正するデータの行と列を指定してください");
-        int fRow;
-        int fColumn;
-        //修正箇所指定
-        do {
-            System.out.print("行 : ");
-            fRow = new java.util.Scanner(System.in).nextInt() - 1;
-            System.out.print("列 : ");
-            fColumn = new java.util.Scanner(System.in).nextInt() - 1;
-            if (outSideEroorCheckInterface(fRow + 1, fColumn + 1)) { //行列外要素指定チェック
-                System.out.println("行列のサイズ外の行もしくは列を指定しています");
-            }
-        } while (outSideEroorCheckInterface(fRow + 1, fColumn + 1));
-        this.matrix[fRow][fColumn] = "_"; //修正箇所にマーキング
-        this.print(tv);
-        this.imputer(fRow, fColumn);
-        System.out.println();
     }
 
     public void imputer(int row, int column) { //row行column列に数値を代入する
