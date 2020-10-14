@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -73,6 +74,8 @@ public class InputMatrix extends AppCompatActivity {
         Button btnBack = findViewById(R.id.btnBack);
         Button btnClear = findViewById(R.id.btnClear);
         Button btnConfirm = findViewById(R.id.btnConfirm);
+        Button btnReset = findViewById(R.id.btnReset);
+        Button btnKannyakuka = findViewById(R.id.btnKannyakuka);
 
         btn0.setOnClickListener(listener);
         btn1.setOnClickListener(listener);
@@ -89,6 +92,8 @@ public class InputMatrix extends AppCompatActivity {
         btnBack.setOnClickListener(listener);
         btnClear.setOnClickListener(listener);
         btnConfirm.setOnClickListener(listener);
+        btnReset.setOnClickListener(listener);
+        btnKannyakuka.setOnClickListener(listener);
 
 
         //行数の変更を検知
@@ -110,24 +115,26 @@ public class InputMatrix extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().matches("[1-9]")) {
-                    row = Integer.parseInt(s.toString());
-                    disp.setText("");
-                    inputData.setText(m.getMatrix()[row - 1][column - 1].replace("_", ""));
+                    if(Integer.parseInt(s.toString()) <= rowMax && Integer.parseInt(s.toString()) > 0){
+                        row = Integer.parseInt(s.toString());
+                        disp.setText("");
+                        inputData.setText(m.getMatrix()[row - 1][column - 1].replace("_", ""));
 
-                    String a = m.getMatrix()[row -1][column -1];
-                    a.replace("_", "");
-                    a += "_";
+                        String a = m.getMatrix()[row -1][column -1];
+                        a.replace("_", "");
+                        a += "_";
 
-                    m.setData(row -1, column -1, a);
-                    m.getMatrix()[row -1][column -1].replace("__", "_");
-                    m.print(disp);
+                        m.setData(row -1, column -1, a);
+                        m.getMatrix()[row -1][column -1].replace("__", "_");
+                        m.print(disp);
+                    }
                 }
             }
         });
         columnCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                for(int r = 0; r < rowMax; r++){
+                for(int r = 0; r < rowMax; r++){        //いちいちすべてのデータを走査すると処理が遅すぎる
                     for(int c = 0; c < columnMax; c++){
                         m.setData(r, c, m.getMatrix()[r][c].replace("_", ""));
                     }
@@ -141,18 +148,20 @@ public class InputMatrix extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().matches("[1-9]")) {
-                    column = Integer.parseInt(s.toString());
-                    disp.setText("");
-                    inputData.setText(m.getMatrix()[row - 1][column - 1].replace("_", ""));
+                if(s.toString().matches("[1-9]")){
+                    if(Integer.parseInt(s.toString()) <= columnMax && Integer.parseInt(s.toString()) > 0) {
+                        column = Integer.parseInt(s.toString());
+                        disp.setText("");
+                        inputData.setText(m.getMatrix()[row - 1][column - 1].replace("_", ""));
 
-                    String a = m.getMatrix()[row -1][column -1];
-                    a.replace("_", "");
-                    a += "_";
+                        String a = m.getMatrix()[row -1][column -1];
+                        a.replace("_", "");
+                        a += "_";
 
-                    m.setData(row -1, column -1, a);
-                    m.getMatrix()[row -1][column -1].replace("__", "_");
-                    m.print(disp);
+                        m.setData(row -1, column -1, a);
+                        m.getMatrix()[row -1][column -1].replace("__", "_");
+                        m.print(disp);
+                    }
                 }
             }
         });
@@ -217,9 +226,70 @@ public class InputMatrix extends AppCompatActivity {
                 case R.id.btnClear:
                     inputData.setText("");
                     break;
+                case R.id.btnReset:
+                    //本当に初期化しますか？
+                    m.reset();
+                    disp.setText("");
+                    m.print(disp);
+                    break;
+
+
+                case R.id.btnKannyakuka:
+                    boolean noData = false;
+                    for(int r = 0; r < Integer.parseInt(rowSize.getText().toString()); r++){
+                        for (int c = 0; c < Integer.parseInt(columnSize.getText().toString()); c++){
+                            if(m.getMatrix()[r][c].equals("")){
+                                noData = true;
+                            }
+                        }
+                    }
+                    if(noData){
+                        Toast.makeText(InputMatrix.this, "未入力のデータがあります", Toast.LENGTH_SHORT).show();
+                        break;
+                    }else{
+                        Intent intent = new Intent(InputMatrix.this, Result.class);
+                        intent.putExtra("Matrix", m);
+                        startActivity(intent);
+                    }
+                    break;
+
+
                 case R.id.btnConfirm:
+                    //修正指定行が行列のサイズ外の場合はサイズ内の値に置き換える
+                    if(row > rowMax) {
+                        row = rowMax;
+                        rowCount.setText("" + row);
+                        Toast.makeText(InputMatrix.this, "指定した行は行列の範囲外です", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    if(column > columnMax){
+                        column = columnMax;
+                        columnCount.setText("" + column);
+                        Toast.makeText(InputMatrix.this, "指定した列は行列の範囲外です", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    if(row < 1){
+                        row = 1;
+                        rowCount.setText("" + row);
+                        Toast.makeText(InputMatrix.this, "指定した行は行列の範囲外です", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    if(column < 1){
+                        column = 1;
+                        columnCount.setText("" + column);
+                        Toast.makeText(InputMatrix.this, "指定した列は行列の範囲外です", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
                     //入力されたデータを読み込み
                     data = inputData.getText().toString();
+                    //読み込んだデータに不備がある場合強制break
+                    if(m.inputErrorCheck(data)){
+                        Toast.makeText(InputMatrix.this, "入力に不備があります", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    // - を -1 に変換 0/2 を 0 に変換
+                    data = m.correctData(data);
                     //ディスプレイリセット
                     disp.setText("");
                     //データを代入

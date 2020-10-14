@@ -1,8 +1,11 @@
 package com.example.matrixcalcapp;
 
 import android.widget.TextView;
+import android.widget.Toast;
+import java.io.Serializable;
 
-public class Matrix {
+@SuppressWarnings("serial")
+public class Matrix implements Serializable {
     private String[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
     private int row; //行数
     private int column; //列数
@@ -166,46 +169,36 @@ public class Matrix {
         }
     }
 
-    //データ入力
-    public void inputData(TextView tv) {
-        for (int row = 0; row < this.getRow(); row++) {
-            for (int column = 0; column < this.getColumn(); column++) {
-                System.out.println();
-                this.matrix[row][column] = "_"; //現在入力要素をマーキング
-                this.print(tv);
-                this.imputer(row, column);
-            }
+
+    public String correctData(String data){
+        if (data.equals("-")) { //-が入力されたとき-1に変換
+            data = "-1";
+        }else if(data.matches("-?0*/.*") || data.matches("")) {	//分子0の分数が入力される、又は何も入力されなかったとき0を入力
+            data = "0";
+        }else if(data.matches("-?0*[1-9]*/0*[1-9]*") || data.matches("-?0*[1-9]*")) {		// 004/05 -> 4/5 || -0005 -> -5
+            data = Fraction.buildFraction(Fraction.getBunshi(data), Fraction.getBunbo(data));
         }
+
+        return data;
     }
 
-    public void imputer(int row, int column) { //row行column列に数値を代入する
-        boolean err;
-        do {
-            err = false;
-            System.out.print((row + 1) + "行" + (column + 1) + "列のデータを入力してください : "); //内部的にはrow行column列ですが、数学的に違和感がないように+1して表示
-            this.getMatrix()[row][column] = new java.util.Scanner(System.in).nextLine();
+    public boolean inputErrorCheck(String data) { //row行column列に数値を代入する
+        boolean err = false;
 
-            if (this.matrix[row][column].equals("-")) { //-が入力されたとき-1に変換
-                this.matrix[row][column] = "-1";
-            }else if(this.matrix[row][column].matches("-?0*/.*") || this.matrix[row][column].matches("")) {	//分子0の分数が入力される、又は何も入力されなかったとき0を入力
-                this.matrix[row][column] = "0";
-            }else if(this.matrix[row][column].matches(".*/0*")) {	//分母0の時エラー
-                err = true;
-            }else if(this.matrix[row][column].matches("-?0*[1-9]*/0*[1-9]*") || this.matrix[row][column].matches("-?0*[1-9]*")) {		// 004/05 -> 4/5 || -0005 -> -5
-                this.matrix[row][column] = Fraction.buildFraction(Fraction.getBunshi(this.matrix[row][column]), Fraction.getBunbo(this.matrix[row][column]));
-            }
+        if (data.equals("-")) { //-が入力されたとき-1に変換
+            data = "-1";
+        }else if(data.matches("-?0*/.*") || data.matches("")) {	//分子0の分数が入力される、又は何も入力されなかったとき0を入力
+            data = "0";
+        }else if(data.matches(".*/0*")) {	//分母0の時エラー
+            err = true;
+        }else if(data.matches("-?0*[1-9]*/0*[1-9]*") || data.matches("-?0*[1-9]*")) {		// 004/05 -> 4/5 || -0005 -> -5
+            data = Fraction.buildFraction(Fraction.getBunshi(data), Fraction.getBunbo(data));
+        }
 
-            if (this.matrix[row][column].matches("-?[0-9]*/?[0-9]*") == false){	//ハイフンが0か1回, スラッシュが0か1回この順番で現れるとき以外エラー
-                err = true;
-            }
-
-            if (err) {
-                System.out.println("入力エラー 例)23, -1, -3/4");
-            }
-        } while (err);
-//		if (this.matrix[row][column].matches(".*/.*")) {
-//			this.matrix[row][column] = Fraction.yakubun(this.matrix[row][column]); //約分
-//		}
+        if (!data.matches("-?[0-9]*/?[0-9]*")){	//ハイフンが0か1回, スラッシュが0か1回この順番で現れるとき以外エラー
+            err = true;
+        }
+        return err;
     }
 
     //row行をratio倍する
