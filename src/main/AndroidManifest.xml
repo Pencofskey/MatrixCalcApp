@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.matrixcalcapp">
+    package="com.kohei.gyouretukannyakuka">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Result"></activity>
-        <activity android:name=".InputMatrix"
+        <activity android:name="com.kohei.gyouretukannyakuka.Result"></activity>
+        <activity android:name="com.kohei.gyouretukannyakuka.InputMatrix"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.kohei.gyouretukannyakuka.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
