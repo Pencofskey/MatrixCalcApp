@@ -103,15 +103,6 @@ public class Matrix implements Serializable {
 
     //行列出力
     public void print(TextView tv) {
-        //行列内の最長文字数を走査
-//		int charCount = 0;
-//		for (int r = 0; r < this.row; r++) {
-//			for (int c = 0; c < this.column; c++) {
-//				if (charCount < this.matrix[r][c].length()) {
-//					charCount = this.matrix[r][c].length(); //最大を上書き
-//				}
-//			}
-//		}
 
         //列数描画
         tv.append("      ");

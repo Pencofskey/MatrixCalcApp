@@ -10,14 +10,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class MainActivity extends AppCompatActivity {
 
     Matrix m;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //広告表示
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         TextView tv = findViewById(R.id.disp);
         m = new Matrix(4, 5, 10);	//デバッグ用自動行列生成
@@ -43,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btnSubmitSize:
                     EditText row = findViewById(R.id.rowSize);
                     EditText column = findViewById(R.id.columnSize);
-                    //EditTextの文字を読み取り1~15
+                    //EditTextの文字を読み取り1~9
                     if (row.getText().toString().matches("[1-9]") && column.getText().toString().matches("[1-9]")){
                         //インテントをnewする
                         Intent intent = new Intent(MainActivity.this, InputMatrix.class);

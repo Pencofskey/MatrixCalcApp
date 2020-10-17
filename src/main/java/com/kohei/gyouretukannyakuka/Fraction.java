@@ -83,7 +83,8 @@ public class Fraction {
         if(getBunshi(b1) == 0 || getBunshi(b2) == 0) {
             bunsu.append(b1);
         }else {
-            long saishoukoubaisu = 1; //最小公倍数の初期化 最小公倍数=a*b/最大公約数
+            //最小公倍数の初期化 最小公倍数=a*b/最大公約数
+            long saishoukoubaisu = 1;
             long d = Math.max(getBunbo(b1), getBunbo(b2));
             long s = Math.min(getBunbo(b1), getBunbo(b2));
             long r = d % s;

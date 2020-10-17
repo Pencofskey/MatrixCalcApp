@@ -12,6 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class InputMatrix extends AppCompatActivity {
     Matrix m;
     TextView rowSize;
@@ -20,6 +27,7 @@ public class InputMatrix extends AppCompatActivity {
     EditText rowCount;
     EditText columnCount;
     TextView inputData;
+    private AdView mAdView;
 
     String data;
     int row;
@@ -31,6 +39,16 @@ public class InputMatrix extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //広告表示
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         setContentView(R.layout.activity_imput_matrix);
         rowSize = findViewById(R.id.rowSize);
