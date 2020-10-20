@@ -249,6 +249,9 @@ public class InputMatrix extends AppCompatActivity {
                     //本当に初期化しますか？
                     m.reset();
                     disp.setText("");
+                    columnCount.setText("1");
+                    rowCount.setText("1");
+                    m.setData(row-1, column-1, "_");
                     m.print(disp);
                     break;
 
