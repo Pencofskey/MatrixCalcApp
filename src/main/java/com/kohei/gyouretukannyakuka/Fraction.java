@@ -65,8 +65,8 @@ public class Fraction {
         //最大公約数 ユークリッド互除法
         long bunbo = getBunbo(b);
         long saidaikouyakusuu = 1;
-        long d = Math.max(getBunshi(b), getBunbo(b));
-        long s = Math.min(getBunshi(b), getBunbo(b));
+        long d = Math.max(bunshi, getBunbo(b));
+        long s = Math.min(bunshi, getBunbo(b));
         long r = d % s;
         for (int i = 1; r != 0;) {
             d = s;

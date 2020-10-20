@@ -34,6 +34,7 @@ public class Result extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+
         Intent intent = getIntent();
         Matrix m = (Matrix)intent.getSerializableExtra("Matrix");
 

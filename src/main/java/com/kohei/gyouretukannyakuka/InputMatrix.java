@@ -27,6 +27,7 @@ public class InputMatrix extends AppCompatActivity {
     EditText rowCount;
     EditText columnCount;
     TextView inputData;
+
     private AdView mAdView;
 
     String data;
@@ -39,6 +40,7 @@ public class InputMatrix extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         //広告表示
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
