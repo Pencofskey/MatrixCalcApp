@@ -8,8 +8,8 @@ android {
         applicationId "com.kohei.gyouretukannyakuka"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.07"
+        versionCode 4
+        versionName "1.09"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

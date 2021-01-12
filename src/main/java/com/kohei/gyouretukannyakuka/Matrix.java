@@ -242,6 +242,8 @@ public class Matrix implements Serializable {
     //行列簡約化-掃き出し法
     public void hakidashi(TextView tv) {
 
+        this.print(tv);
+
         //左下に0の坂を作る
         for (int r = 0; r < this.row; r++) {
             for (int c = 0; c < this.column; c++) {
@@ -282,11 +284,11 @@ public class Matrix implements Serializable {
                         if (this.matrix[i][c].equals("0") == false) {
 
                             //デバッグ用
-                            this.print(tv);
-                            tv.append("\n0が下に来るように行を入れ替える | " + (r + 1) + "行 <-> " + (i + 1) + " 行\n\n");
+                            tv.append("\n0が下に来るように行を入れ替える\n " + (r + 1) + "行 <-> " + (i + 1) + " 行\n\n");
                             //							System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
                             rowBasicTransformation3(r, i); //i行c列が0でない数の時にi行とr行を入れ替える
+                            this.print(tv);
                             i = this.row; //入れ替え終了
                         }
                     }
@@ -297,22 +299,29 @@ public class Matrix implements Serializable {
                     if (!this.matrix[r][c].equals("1")) {
 
                         //デバッグ用
-                        this.print(tv);
-                        tv.append("\n行の主成分を1にする | " + (r + 1) + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n\n");
+                        tv.append("\n行の主成分を1にする\n " + (r + 1) + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n\n");
                         //						System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
                         rowBasicTransformation1_w(r, this.matrix[r][c]);
+                        this.print(tv);
+                    }
+                    if(r != this.row - 1){
+                        tv.append("\n主成分より下の行の成分を0にする\n");
                     }
                     for (int i = 1; r + i < this.row; i++) { //最後の行でない場合のみ実行
                         if (!this.matrix[r + i][c].equals("0")) {
 
                             //デバッグ用
-                            this.print(tv);
-                            tv.append("\n主成分より下の行の成分を0にする | " + (r + 1 + i) + "行 - " + (r + 1) + "行 × " + this.matrix[r + i][c] + "\n\n");
-                            //							System.out.println("現在は " + r + "行 " + c + "列 です\n");
+                            tv.append(" " + (r + 1 + i) + "行 - " + (r + 1) + "行 × " + this.matrix[r + i][c] + "\n");
 
                             rowBasicTransformation2_d(r, this.matrix[r + i][c], r + i);
+                            //							System.out.println("現在は " + r + "行 " + c + "列 です\n");
+
                         }
+                    }
+                    if(r != this.row - 1){
+                        tv.append("\n");
+                        this.print(tv);
                     }
                     c = this.column; //次の行に進む
                 }
@@ -323,16 +332,22 @@ public class Matrix implements Serializable {
         for (int r = this.row - 1; r > 0; r--) {
             for (int c = 0; c < this.column; c++) {
                 if (!this.matrix[r][c].equals("0")) {
+                    if(r != 0){
+                        tv.append("\n主成分より上にある成分を0にする\n");
+                    }
                     for (int i = 1; r - i >= 0; i++) {
                         if(!this.matrix[r - i][c].equals("0")) {
 
                             //デバッグ用
-                            this.print(tv);
-                            tv.append("\n主成分より上にある成分を0にする | " + ((r + 1) - i) + "行 - " + (r + 1) + "行 × " + this.matrix[r - i][c] + "\n\n");
                             //						System.out.println("現在は " + r + "行 " + c + "列 です\n");
+                            tv.append(" " + ((r + 1) - i) + "行 - " + (r + 1) + "行 × " + this.matrix[r - i][c] + "\n");
 
                             rowBasicTransformation2_d(r, this.matrix[r - i][c], r - i);
                         }
+                    }
+                    if(r != 0){
+                        tv.append("\n");
+                        this.print(tv);
                     }
                     c = this.column; //この行の捜査終了
                 }

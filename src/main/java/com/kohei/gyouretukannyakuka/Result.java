@@ -47,7 +47,6 @@ public class Result extends AppCompatActivity {
         progress = findViewById(R.id.progress);
 
         m.hakidashi(progress);
-        m.print(progress);
 
 
         result = findViewById(R.id.result);
