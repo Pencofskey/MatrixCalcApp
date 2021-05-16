@@ -15,10 +15,16 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2666215759375789~7964211818"/>
 
-        <activity android:name="com.kohei.gyouretukannyakuka.Result"></activity>
+        <activity
+            android:name="com.kohei.gyouretukannyakuka.Result"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name="com.kohei.gyouretukannyakuka.InputMatrix"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name="com.kohei.gyouretukannyakuka.MainActivity">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.kohei.gyouretukannyakuka.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
