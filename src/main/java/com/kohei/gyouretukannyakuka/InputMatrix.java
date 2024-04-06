@@ -12,13 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
 public class InputMatrix extends AppCompatActivity {
     Matrix m;
     TextView rowSize;
@@ -27,8 +20,6 @@ public class InputMatrix extends AppCompatActivity {
     EditText rowCount;
     EditText columnCount;
     TextView inputData;
-
-    private AdView mAdView;
 
     String data;
     int row;
@@ -41,16 +32,6 @@ public class InputMatrix extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //広告表示
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         setContentView(R.layout.activity_imput_matrix);
         rowSize = findViewById(R.id.rowSize);
@@ -197,141 +178,116 @@ public class InputMatrix extends AppCompatActivity {
             column = Integer.parseInt(columnCount.getText().toString());
 
             int id = view.getId();
-            switch(id) {
-                case R.id.btn0:
-                    inputData.append("0");
-                    break;
-                case R.id.btn1:
-                    inputData.append("1");
-                    break;
-                case R.id.btn2:
-                    inputData.append("2");
-                    break;
-                case R.id.btn3:
-                    inputData.append("3");
-                    break;
-                case R.id.btn4:
-                    inputData.append("4");
-                    break;
-                case R.id.btn5:
-                    inputData.append("5");
-                    break;
-                case R.id.btn6:
-                    inputData.append("6");
-                    break;
-                case R.id.btn7:
-                    inputData.append("7");
-                    break;
-                case R.id.btn8:
-                    inputData.append("8");
-                    break;
-                case R.id.btn9:
-                    inputData.append("9");
-                    break;
-                case R.id.btnSlash:
-                    inputData.append("/");
-                    break;
-                case R.id.btnDash:
-                    inputData.append("-");
-                    break;
-                case R.id.btnBack:
-                    String s = inputData.getText().toString();
-                    if (s.equals("")){
-                        break;
-                    }
-                    s = s.substring(0, s.length()-1);
-                    inputData.setText(s);
-                    break;
-                case R.id.btnClear:
-                    inputData.setText("");
-                    break;
-                case R.id.btnReset:
-                    //本当に初期化しますか？
-                    m.reset();
-                    disp.setText("");
-                    columnCount.setText("1");
-                    rowCount.setText("1");
-                    m.setData(row-1, column-1, "_");
-                    m.print(disp);
-                    break;
-
-
-                case R.id.btnKannyakuka:
-                    boolean noData = false;
-                    for(int r = 0; r < Integer.parseInt(rowSize.getText().toString()); r++){
-                        for (int c = 0; c < Integer.parseInt(columnSize.getText().toString()); c++){
-                            if(m.getMatrix()[r][c].equals("")){
-                                noData = true;
-                            }
-                            //アンダーバー削除
-                            m.setData(r, c, m.getMatrix()[r][c].replace("_", ""));
+            if (id == R.id.btn0) {
+                inputData.append("0");
+            } else if (id == R.id.btn1) {
+                inputData.append("1");
+            } else if (id == R.id.btn2) {
+                inputData.append("2");
+            } else if (id == R.id.btn3) {
+                inputData.append("3");
+            } else if (id == R.id.btn4) {
+                inputData.append("4");
+            } else if (id == R.id.btn5) {
+                inputData.append("5");
+            } else if (id == R.id.btn6) {
+                inputData.append("6");
+            } else if (id == R.id.btn7) {
+                inputData.append("7");
+            } else if (id == R.id.btn8) {
+                inputData.append("8");
+            } else if (id == R.id.btn9) {
+                inputData.append("9");
+            } else if (id == R.id.btnSlash) {
+                inputData.append("/");
+            } else if (id == R.id.btnDash) {
+                inputData.append("-");
+            } else if (id == R.id.btnBack) {
+                String s = inputData.getText().toString();
+                if (s.equals("")) {
+                    return;
+                }
+                s = s.substring(0, s.length() - 1);
+                inputData.setText(s);
+            } else if (id == R.id.btnClear) {
+                inputData.setText("");
+            } else if (id == R.id.btnReset) {//本当に初期化しますか？
+                m.reset();
+                disp.setText("");
+                columnCount.setText("1");
+                rowCount.setText("1");
+                m.setData(row - 1, column - 1, "_");
+                m.print(disp);
+            } else if (id == R.id.btnKannyakuka) {
+                boolean noData = false;
+                for (int r = 0; r < Integer.parseInt(rowSize.getText().toString()); r++) {
+                    for (int c = 0; c < Integer.parseInt(columnSize.getText().toString()); c++) {
+                        if (m.getMatrix()[r][c].equals("")) {
+                            noData = true;
                         }
+                        //アンダーバー削除
+                        m.setData(r, c, m.getMatrix()[r][c].replace("_", ""));
                     }
-                    if(noData){
-                        Toast.makeText(InputMatrix.this, "未入力のデータがあります", Toast.LENGTH_SHORT).show();
-                        break;
-                    }else{
-                        Intent intent = new Intent(InputMatrix.this, Result.class);
-                        intent.putExtra("Matrix", m);
-                        startActivity(intent);
-                    }
-                    break;
+                }
+                if (noData) {
+                    Toast.makeText(InputMatrix.this, "未入力のデータがあります", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(InputMatrix.this, Result.class);
+                    intent.putExtra("Matrix", m);
+                    startActivity(intent);
+                }
+            } else if (id == R.id.btnConfirm) {//修正指定行が行列のサイズ外の場合はサイズ内の値に置き換える
+                if (row > rowMax || column > columnMax || row < 1 || column < 1) {
+                    row = rowMax;
+                    column = columnMax;
+                    rowCount.setText("" + row);
+                    columnCount.setText("" + column);
+                    Toast.makeText(InputMatrix.this, "指定した行/列は行列の範囲外です", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                //入力されたデータを読み込み
+                data = inputData.getText().toString();
+                //読み込んだデータに不備がある場合強制break
+                if (m.inputErrorCheck(data)) {
+                    Toast.makeText(InputMatrix.this, "入力に不備があります", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // - を -1 に変換 0/2 を 0 に変換
+                data = m.correctData(data);
+                //ディスプレイリセット
+                disp.setText("");
+                //データを代入
+                m.setData(row - 1, column - 1, data);
 
-                case R.id.btnConfirm:
-                    //修正指定行が行列のサイズ外の場合はサイズ内の値に置き換える
-                    if(row > rowMax || column > columnMax || row < 1 || column < 1) {
-                        row = rowMax;
-                        column = columnMax;
-                        rowCount.setText("" + row);
-                        columnCount.setText("" + column);
-                        Toast.makeText(InputMatrix.this, "指定した行/列は行列の範囲外です", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-
-                    //入力されたデータを読み込み
-                    data = inputData.getText().toString();
-                    //読み込んだデータに不備がある場合強制break
-                    if(m.inputErrorCheck(data)){
-                        Toast.makeText(InputMatrix.this, "入力に不備があります", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    // - を -1 に変換 0/2 を 0 に変換
-                    data = m.correctData(data);
-                    //ディスプレイリセット
-                    disp.setText("");
-                    //データを代入
-                    m.setData(row - 1,  column - 1, data);
-
-                    //確定ボタンを押すたび列が1増え、最後の列に達したら行を1増やし、行を1にする
-                    if(row < rowMax){
-                        if (column < columnMax){
-                            column++;
-                        }else{
-                            column = 1;
-                            row++;
-                        }
-                    }else if (column < columnMax){
+                //確定ボタンを押すたび列が1増え、最後の列に達したら行を1増やし、行を1にする
+                if (row < rowMax) {
+                    if (column < columnMax) {
                         column++;
-                    }else{
-                        Toast.makeText(InputMatrix.this, "入力終了", Toast.LENGTH_SHORT);
+                    } else {
                         column = 1;
-                        row = 1;
+                        row++;
                     }
+                } else if (column < columnMax) {
+                    column++;
+                } else {
+                    Toast.makeText(InputMatrix.this, "入力終了", Toast.LENGTH_SHORT);
+                    column = 1;
+                    row = 1;
+                }
 
-                    //現在の行と列の表示を更新
-                    rowCount.setText(row + "");
-                    columnCount.setText((column + ""));
+                //現在の行と列の表示を更新
+                rowCount.setText(row + "");
+                columnCount.setText((column + ""));
 
 
-                    //入力個所を明確にするために入力中のデータの末尾に_を追加
+                //入力個所を明確にするために入力中のデータの末尾に_を追加
 //                    String a = m.getMatrix()[row -1][column -1];
 //                    a += "_";
 //                    m.setData(row -1, column -1, a);
 //                    m.print(disp);
-                    //次のデータにアンダーバーを追加
+                //次のデータにアンダーバーを追加
 //                    inputData.setText(m.getMatrix()[row-1][column-1].replace("_", ""));
-                    break;
             }
         }
     }

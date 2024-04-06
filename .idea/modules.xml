@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MatrixCalcApp.iml" filepath="$PROJECT_DIR$/.idea/modules/MatrixCalcApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MatrixCalcApp.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/MatrixCalcApp.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MatrixCalcApp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MatrixCalcApp.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MatrixCalcApp.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/MatrixCalcApp.unitTest.iml" />
     </modules>
   </component>
 </project>

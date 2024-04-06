@@ -17,13 +17,16 @@
 
         <activity
             android:name="com.kohei.gyouretukannyakuka.Result"
+            android:exported="true"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.kohei.gyouretukannyakuka.InputMatrix"
             android:windowSoftInputMode="adjustPan"
+            android:exported="true"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="com.kohei.gyouretukannyakuka.MainActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
