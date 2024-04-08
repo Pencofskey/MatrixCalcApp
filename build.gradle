@@ -24,8 +24,8 @@ android {
         applicationId "com.kohei.gyouretukannyakuka"
         minSdkVersion 23
         targetSdkVersion 34
-        versionCode 6
-        versionName "1.10"
+        versionCode 7
+        versionName "1.11"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
